@@ -6,14 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaGithub, FaGoogle } from "react-icons/fa"; 
 
 import { Card,CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"; 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import { useRouter } from "next/navigation";
 
 const formSchema =  z.object({
     email: z.string().email(),
@@ -26,7 +27,7 @@ export const SignInView = () => {
     const [pending, setPending] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema), 
+        resolver: zodResolver(formSchema),    
         defaultValues: {
             email: "",
             password: "", 
@@ -39,8 +40,9 @@ export const SignInView = () => {
 
         authClient.signIn.email(
             {
-                email: data.email,
-                password: data.password
+                email: data.email, 
+                password: data.password,
+                callbackURL: "/"
             },
             {
                 onSuccess: () => {
@@ -120,11 +122,29 @@ export const SignInView = () => {
                                     </span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                     <Button disabled={pending} variant="outline" type="button" className="w-full">
-                                        Google
-                                     </Button>
-                                     <Button disabled={pending} variant="outline" type="button" className="w-full">
-                                        GitHub
+                                     <Button 
+                                        disabled={pending} 
+                                        onClick={() => {
+                                             authClient.signIn.social({
+                                                 provider: "google"
+                                             })
+                                        }}
+                                        variant="outline" 
+                                        type="button" 
+                                        className="w-full">
+                                        <FaGoogle/>
+                                     </Button> 
+                                     <Button 
+                                        disabled={pending} 
+                                        onClick={() => {
+                                             authClient.signIn.social({
+                                                 provider: "github"
+                                             })
+                                        }}
+                                        variant="outline" 
+                                        type="button" 
+                                        className="w-full">
+                                        <FaGithub/>
                                      </Button>
                                 </div>
                                 <div className="text-center text-sm">
@@ -134,9 +154,9 @@ export const SignInView = () => {
                         </form>
                     </Form> 
 
-                    <div className="bg-radial from-[#7a8ef5] to-[#6360f7] relative hidden md:flex flex-col gap-y-4 items-center justify-center">
-                        <img src="/logo.svg" alt="Image" className="h-[200px] w-[200px]"/>
-                        {/* <p className="text-2xl font-semibold text-black">Meetinc</p> */}
+                    <div className="bg-radial from-sidebar-accent  to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
+                        <img src="/logo2.svg" alt="Image" className="h-[100px] w-[100px]"/>
+                        <p className="text-2xl font-semibold text-white">Meetinc</p>
                     </div>
                 </CardContent>  
             </Card> 
