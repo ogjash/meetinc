@@ -7,8 +7,7 @@ import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
-import { FaGithub, FaGoogle } from "react-icons/fa"; 
-
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Card,CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"; 
 import { Button } from "@/components/ui/button";
