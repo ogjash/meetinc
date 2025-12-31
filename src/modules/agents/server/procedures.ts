@@ -62,8 +62,8 @@ export const agentsRouter = createTRPCRouter({
             return {
                 items: data,
                 total: total.count,
-                totalPages,
-            };  
+                totalPages,  
+            };    
     }),
     create: protectedProcedure
         .input(agentsInsertSchema)
