@@ -45,7 +45,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
 
     const [RemoveConfirmation, confirmRemove] = useConfirm(
         "Are you sure?",
-        "The following action will remove this meeting"
+        "The following action will remove this meeting."
     ) 
 
     const handleRemoveMeeting = async() => {
@@ -82,6 +82,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
                 {isUpcoming && (<UpcomingState meetingId={meetingId} onCancelMeeting={() => {}} isCancelling={false}/>)}
                 {isCompleted && <div>Completed</div>}
                 {isProcessing && (<ProcessingState />)} 
+
             </div>
         </>   
     )
